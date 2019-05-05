@@ -18,35 +18,108 @@ let wheel = {
   y: 0.4
 };
 
+function go1() {
+  clear();
+  goal = 1;
+  run();
+}
+
+function go2() {
+  clear();
+  goal = 2;
+  run();
+}
+
 /*
- * 0 - start
- * 1 - Living room
- * 2 - Bedroom
+ * 2 - Living room
+ * 1 - Bedroom
  * */
-let goal = 1;
+let goal;
 
 draw();
 renderSensors();
-main();
 
-function main() {
+function run() {
+  if (goal === 1 && wheel.x > 1.4 && wheel.y < 0.4) {
+    return;
+  }
+  if (goal === 2 && wheel.x < 0.45 && wheel.y > 2.2) {
+    return;
+  }
   calcDistance();
   calcSimilarityMeasure();
-  if (sensors[0].u * 1.025 > sensors[1].u) {
-    wheel.y += 0.01;
-  } else if (sensors[1].u * 1.05 > sensors[2].u) {
-    wheel.y += 0.01;
-    wheel.x += 0.01;
-  } else if (sensors[2].u > sensors[3].u) {
-    wheel.x += 0.01;
-  } else {
-    // wheel.x += 0.01;ufh
-  }
+  activateSensor(getMaxSensor());
   draw();
-  setTimeout(() => main(), 5);
+  setTimeout(() => run(), 3);
 }
 
-function clear() {}
+function getMaxSensor() {
+  maxSensorId = 0;
+  max = 0;
+  sensors.forEach(sensor => {
+    if (sensor.u > max) {
+      max = sensor.u;
+      maxSensorId = sensor.id;
+    }
+  });
+  switch (maxSensorId) {
+    case 2:
+      if (sensors[0].u * 1.025 > sensors[1].u) maxSensorId--;
+      break;
+    case 3:
+      if (sensors[1].u * 1.0275 > sensors[2].u) maxSensorId--;
+      break;
+    case 6:
+      if (sensors[5].u < sensors[6].u * 1.01) maxSensorId++;
+      break;
+  }
+  return maxSensorId;
+}
+
+function activateSensor(sensor) {
+  switch (sensor) {
+    case 1:
+      wheel.y += 0.01;
+      break;
+    case 2:
+      wheel.x += 0.005;
+      wheel.y += 0.01;
+      break;
+    case 3:
+      wheel.x += 0.01;
+      break;
+    case 4:
+      if (goal === 1) {
+        wheel.x += 0.005;
+        wheel.y -= 0.01;
+      } else {
+        wheel.x += 0.005;
+        wheel.y += 0.01;
+      }
+      break;
+    case 5:
+      wheel.y -= 0.01;
+      break;
+    case 6:
+      wheel.y += 0.01;
+      break;
+    case 7:
+      wheel.x -= 0.005;
+      wheel.y += 0.01;
+      break;
+    case 8:
+      wheel.x -= 0.01;
+      break;
+  }
+}
+
+function clear() {
+  wheel = {
+    x: 0.6,
+    y: 0.4
+  };
+  roadC.innerHTML = "";
+}
 
 function calcDistance() {
   for (let i = 0; i < 8; i++) {
