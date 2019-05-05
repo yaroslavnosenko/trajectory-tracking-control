@@ -23,7 +23,7 @@ let wheel = {
  * 1 - Living room
  * 2 - Bedroom
  * */
-let goal = 0;
+let goal = 1;
 
 draw();
 renderSensors();
