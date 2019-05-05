@@ -1,0 +1,84 @@
+body {
+  background: #fafafa;
+}
+
+.col-c {
+  max-width: 40px;
+  height: 40px;
+  padding: 0;
+  background: white;
+  box-sizing: border-box;
+  border-left: 1px dashed #eee;
+  border-bottom: 1px dashed #eee;
+}
+
+.b {
+  background: #212529;
+  border: none;
+}
+
+.sensor {
+  width: 20px;
+  height: 20px;
+  background: #dc3545;
+  transform: rotate(45deg);
+  position: absolute;
+}
+
+.room {
+  position: relative;
+  max-width: 440px;
+  margin: auto;
+}
+
+.room .row {
+  margin: 0;
+}
+
+.road {
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  background: #007bff;
+  border-radius: 100%;
+}
+
+#wheel {
+  width: 30px;
+  height: 30px;
+  border-radius: 20px;
+  position: absolute;
+  background: #007bff;
+}
+
+#l1,
+#l2,
+#l3 {
+  position: absolute;
+  height: 40px;
+  line-height: 40px;
+  width: 120px;
+  text-align: center;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+#l3,
+#l2 {
+  bottom: 0;
+  right: 60px;
+}
+
+#l2 {
+  right: 0;
+  left: 60px;
+}
+
+#l1 {
+  top: 40px;
+}
+
+.text-black-50 {
+  color: rgba(0, 0, 0, 0.5);
+  font-weight: normal;
+}
